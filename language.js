@@ -19,7 +19,7 @@ const translations = {
     title: "Исаев Даниил",
     description: "Исаев Даниил — студент СПбГУ, программирование и проекты.",
     navAbout: "обо мне", navProjects: "проекты", navContacts: "контакты",
-    name: "Исаев Даниил", role: "Студент СПбГУ · Программная инженерия, набор 2029",
+    name: "Исаев Даниил", role: "Студент СПбГУ · Программная инженерия '29",
     intro: "Изучаю программирование и современные языки, развиваю технические навыки и участвую в проектах, где ценю командную работу и обмен идеями.",
     status: "статус: учусь · создаю · сотрудничаю", photoPlaceholder: "фото Даниила",
     aboutTitle: "обо мне", bio1: "Родился в Липецке, окончил гимназию № 69 имени Сергея Есенина. С 2025 года учусь на направлении «Программная инженерия» в Санкт-Петербургском государственном университете.",
@@ -32,6 +32,46 @@ const translations = {
     photoAlt: "Исаев Даниил", portraitLabel: "Фотография Даниила Исаева"
   }
 };
+
+const greetings = [
+  'print("Hello, World!")',
+  'println!("Hello, World!");',
+  'System.out.println("Hello, World!");',
+  'fmt.Println("Hello, World!")',
+  'console.log("Hello, World!");',
+  'printf("Hello, World!\n");',
+  'std::cout << "Hello, World!" << std::endl;'
+];
+
+function startGreetingAnimation() {
+  const element = document.querySelector(".eyebrow");
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    element.textContent = greetings[0];
+    return;
+  }
+  let greetingIndex = 0;
+  let characterIndex = 0;
+  let deleting = false;
+  const step = () => {
+    const phrase = greetings[greetingIndex];
+    element.textContent = phrase.slice(0, characterIndex);
+    if (!deleting && characterIndex < phrase.length) {
+      characterIndex++;
+      setTimeout(step, 55);
+    } else if (!deleting) {
+      deleting = true;
+      setTimeout(step, 1200);
+    } else if (characterIndex > 0) {
+      characterIndex--;
+      setTimeout(step, 32);
+    } else {
+      deleting = false;
+      greetingIndex = (greetingIndex + 1) % greetings.length;
+      setTimeout(step, 350);
+    }
+  };
+  step();
+}
 
 function setLanguage(language) {
   const copy = translations[language] || translations.en;
@@ -63,3 +103,4 @@ try {
   if (savedLanguage === 'en' || savedLanguage === 'ru') initialLanguage = savedLanguage;
 } catch (_) {}
 setLanguage(initialLanguage);
+startGreetingAnimation();
