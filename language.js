@@ -84,11 +84,6 @@ function rotateStatus() {
   const run = ++statusRun;
   const element = document.querySelector(".status-text");
   let phraseIndex = 0;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    element.textContent = statusPhrases[0];
-    element.classList.remove("is-changing");
-    return;
-  }
   const scheduleNext = () => {
     statusTimer = setTimeout(() => {
       if (run !== statusRun) return;

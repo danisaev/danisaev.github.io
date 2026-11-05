@@ -4,4 +4,4 @@
 
 @media(max-width:390px){.topbar{height:auto;min-height:66px;flex-wrap:wrap;padding:10px 0}.header-actions{width:100%;justify-content:space-between}}
 
-.prompt{width:min(320px,100%);min-width:0;justify-content:center;position:relative}.prompt i{position:absolute;left:13px}.status-text{display:inline-block;transition:opacity .28s ease,transform .28s ease}.status-text.is-changing{opacity:0;transform:translateY(5px)}@media(prefers-reduced-motion:reduce){.status-text{transition:none}}
+.prompt{width:min(320px,100%);min-width:0;justify-content:center;position:relative}.prompt i{position:absolute;left:13px}.status-text{display:inline-block;transition:opacity .28s ease,transform .28s ease}.status-text.is-changing{opacity:0;transform:translateY(5px)}
