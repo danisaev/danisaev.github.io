@@ -1,19 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b1420">
   <meta name="description" content="Daniil Isaev — Saint Petersburg State University student, programming and projects.">
   <title>Daniil Isaev</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
   <script src="language.js" defer></script>
 </head>
 <body>
-  <header class="topbar wrap">
+  <header class="topbar container site-container d-flex align-items-center justify-content-between">
     <a class="brand" href="#top"><b>~/</b> danisaev</a>
     <div class="header-actions">
-      <nav class="nav" aria-label="Main navigation">
+      <nav class="nav d-flex align-items-center gap-3" aria-label="Main navigation">
         <a href="#about" data-i18n="navAbout">about</a>
         <a href="#projects" data-i18n="navProjects">projects</a>
         <a href="#contacts" data-i18n="navContacts">contact</a>
@@ -25,25 +26,31 @@
       </div>
     </div>
   </header>
-  <main id="top" class="wrap">
-    <section class="hero">
-      <div class="hero-copy">
+  <main id="top" class="container site-container">
+    <section class="hero row align-items-center justify-content-between g-5">
+      <div class="hero-copy col-md-8 order-2 order-md-1">
         <p class="eyebrow" aria-live="off" aria-label="Hello World code examples">print("Hello, World!")</p>
         <h1 data-i18n="name">Daniil Isaev</h1>
         <p class="role" data-i18n="role">Student, SPbU · Software Engineering '29</p>
         <p class="intro" data-i18n="intro">I study programming and modern languages, build my technical skills, and take part in projects where I value teamwork and sharing ideas.</p>
         <div class="prompt"><i></i><span class="status-text">work smarter not harder</span></div>
       </div>
-      <div class="portrait" aria-label="Daniil Isaev's photo"><img src="assets/avatar.png" alt="Daniil Isaev" onload="this.nextElementSibling.hidden=true" onerror="this.hidden=true"><div class="placeholder"><strong>DI</strong><span data-i18n="photoPlaceholder">Daniil's photo</span></div></div>
+      <div class="portrait col-md-4 order-1 order-md-2 p-0" aria-label="Daniil Isaev's photo">
+        <img src="assets/avatar.png" alt="Daniil Isaev" onload="this.nextElementSibling.hidden=true" onerror="this.hidden=true">
+        <div class="placeholder">
+          <strong>DI</strong>
+          <span data-i18n="photoPlaceholder">Daniil's photo</span>
+        </div>
+      </div>
     </section>
     <section class="section" id="about">
       <h2 class="section-title"><span>01 /</span> <span data-i18n="aboutTitle">about me</span></h2>
-      <div class="about-grid">
-        <div>
+      <div class="about-grid row g-4 align-items-start">
+        <div class="col-md-7">
           <p data-i18n="bio1">I was born in Lipetsk and graduated from Gymnasium No. 69 named after Sergei Yesenin. Since 2025, I have been studying Software Engineering at Saint Petersburg State University.</p>
           <p data-i18n="bio2">I am interested in programming and exploring modern languages and development tools. I value open knowledge sharing, commitment to a shared goal, and building useful things together as a team.</p>
         </div>
-        <div class="facts">
+        <div class="facts col-md-5 d-grid gap-3">
           <div class="fact"><span class="label" data-i18n="studiesLabel">studies</span><span data-i18n="university">Saint Petersburg State University</span></div>
           <div class="fact"><span class="label" data-i18n="programLabel">program</span><span data-i18n="program">Software Engineering · 2025–present</span></div>
           <div class="fact"><span class="label" data-i18n="hometownLabel">hometown</span><span data-i18n="hometown">Lipetsk</span></div>
@@ -52,23 +59,49 @@
       </div>
       <div class="interests">
         <h3 class="interest-title" data-i18n="interestsTitle">interests</h3>
-        <div class="chips"><span class="chip" data-i18n="interest1">software development</span><span class="chip" data-i18n="interest2">modern programming languages</span><span class="chip" data-i18n="interest3">engineering challenges</span><span class="chip" data-i18n="interest4">team projects</span></div>
+        <div class="chips d-flex flex-wrap gap-2">
+          <span class="chip badge rounded-1" data-i18n="interest1">software development</span>
+          <span class="chip badge rounded-1" data-i18n="interest2">modern programming languages</span>
+          <span class="chip badge rounded-1" data-i18n="interest3">engineering challenges</span>
+          <span class="chip badge rounded-1" data-i18n="interest4">team projects</span>
+        </div>
       </div>
     </section>
     <section class="section">
       <h2 class="section-title"><span>02 /</span> <span data-i18n="skillsTitle">skills</span></h2>
-      <div class="chips"><span class="chip">Rust</span><span class="chip">Python</span><span class="chip">Linux</span><span class="chip">Git</span></div>
+      <div class="chips d-flex flex-wrap gap-2">
+        <span class="chip badge rounded-1">Rust</span>
+        <span class="chip badge rounded-1">Python</span>
+        <span class="chip badge rounded-1">Linux</span>
+        <span class="chip badge rounded-1">Git</span>
+      </div>
     </section>
     <section class="section" id="projects">
       <h2 class="section-title"><span>03 /</span> <span data-i18n="projectsTitle">projects</span></h2>
-      <article class="project"><div class="project-head"><h3>marline</h3><span class="tag">Rust</span></div><p>⚡ Blazingly fast Marline SBC subsystem written in Rust 🦀 ⚡</p><a class="tag" href="https://github.com/danisaev/marline" target="_blank" rel="noreferrer" data-i18n="sourceLink">source code on GitHub →</a></article>
-      <p class="hint" style="margin-top:14px" data-i18n="moreProjects">[ more projects coming soon ]</p>
+      <article class="project card">
+        <div class="card-body">
+          <div class="project-head d-flex justify-content-between align-items-center gap-3">
+            <h3>marline</h3>
+            <span class="tag">Rust</span>
+          </div>
+          <p>⚡ Blazingly fast Marline SBC subsystem written in Rust 🦀 ⚡</p>
+          <a class="tag" href="https://github.com/danisaev/marline" target="_blank" rel="noreferrer" data-i18n="sourceLink">source code on GitHub →</a>
+        </div>
+      </article>
+      <p class="hint mt-3" data-i18n="moreProjects">[ more projects coming soon ]</p>
     </section>
     <section class="section" id="contacts">
       <h2 class="section-title"><span>04 /</span> <span data-i18n="contactsTitle">get in touch</span></h2>
-      <div class="contacts"><a class="contact" href="https://github.com/danisaev" target="_blank" rel="noreferrer">GitHub ↗</a><a class="contact" href="https://t.me/bekozabrikos" target="_blank" rel="noreferrer">Telegram ↗</a><a class="contact" href="mailto:isaev.daniil06@gmail.com">Gmail ↗</a><a class="contact" href="mailto:daniil_isaev06@vk.com" data-i18n="vkMail">VK Mail ↗</a></div>
+      <div class="contacts d-flex flex-wrap gap-2">
+        <a class="contact btn btn-outline-info" href="https://github.com/danisaev" target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a class="contact btn btn-outline-info" href="https://t.me/bekozabrikos" target="_blank" rel="noreferrer">Telegram ↗</a>
+        <a class="contact btn btn-outline-info" href="mailto:isaev.daniil06@gmail.com">Gmail ↗</a>
+        <a class="contact btn btn-outline-info" href="mailto:daniil_isaev06@vk.com" data-i18n="vkMail">VK Mail ↗</a>
+      </div>
     </section>
   </main>
-  <footer class="footer wrap"><span data-i18n="copyright">© 2026 Daniil Isaev</span></footer>
+  <footer class="footer container site-container d-flex flex-column flex-md-row justify-content-between gap-3">
+    <span data-i18n="copyright">© 2026 Daniil Isaev</span>
+  </footer>
 </body>
 </html>
