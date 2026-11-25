@@ -1,0 +1,178 @@
+.handshake-main {
+  min-height: calc(100vh - 125px);
+  padding-top: clamp(36px, 7vw, 82px);
+  padding-bottom: 48px;
+}
+
+.handshake-panel {
+  max-width: 760px;
+  margin-top: 30px;
+  padding: clamp(18px, 4vw, 36px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #101e2b;
+}
+
+.handshake-art {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 460px);
+  margin: 0 auto;
+  padding-top: 8px;
+  overflow: hidden;
+}
+
+.handshake-hand {
+  transform: translateX(var(--rest));
+}
+
+.handshake-hand--left {
+  --rest: -18%;
+  --meet: 2.5%;
+}
+
+.handshake-hand--right {
+  --rest: 18%;
+  --meet: -2.5%;
+}
+
+.handshake-hand canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.handshake-hand--right canvas {
+  transform: scaleX(-1);
+}
+
+.handshake-contact-point {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  width: 2px;
+  height: 28%;
+  border-radius: 2px;
+  background: var(--sky);
+  box-shadow: 0 0 18px 3px var(--blue);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+
+[data-phase="connecting"] .handshake-hand {
+  animation: handshake-meet var(--handshake-duration) ease var(--handshake-offset, 0ms) both;
+}
+
+[data-phase="connecting"] .handshake-contact-point {
+  animation: handshake-light var(--handshake-duration) ease var(--handshake-offset, 0ms) both;
+}
+
+[data-phase="completed"] .handshake-hand {
+  transform: translateX(var(--meet));
+}
+
+@keyframes handshake-meet {
+  0% { transform: translateX(var(--rest)); }
+  52%, 100% { transform: translateX(var(--meet)); }
+}
+
+@keyframes handshake-light {
+  0%, 49%, 92%, 100% { opacity: 0; }
+  53%, 60% { opacity: 1; }
+}
+
+.handshake-names {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 560px;
+  margin: 0 auto 24px;
+  color: var(--muted);
+  font: 13px/1.5 var(--mono);
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.handshake-details {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+#handshake-status {
+  margin: 0 0 12px;
+  color: var(--sky);
+  font: 14px/1.5 var(--mono);
+}
+
+#handshake-status:empty {
+  display: none;
+}
+
+.handshake-notice {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.handshake-result {
+  margin: 0;
+  font-size: clamp(19px, 4vw, 27px);
+  overflow-wrap: anywhere;
+}
+
+.handshake-result-link:not([hidden]) {
+  display: inline-block;
+  margin: 8px 0;
+  font: 13px/1.5 var(--mono);
+}
+
+.handshake-details [data-send] {
+  margin-top: 10px;
+}
+
+.handshake-queue {
+  max-width: 760px;
+  margin-top: 28px;
+}
+
+.handshake-queue ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.handshake-queue li {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.handshake-account {
+  margin-top: 22px;
+}
+
+.handshake-account button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: 13px/1.5 var(--mono);
+}
+
+.handshake-account button:hover {
+  color: var(--sky);
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-phase="connecting"] .handshake-hand {
+    animation: none;
+    transform: translateX(var(--meet));
+  }
+
+  [data-phase="connecting"] .handshake-contact-point {
+    animation: none;
+  }
+}

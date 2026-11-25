@@ -2,7 +2,18 @@ const translations = {
   en: {
     title: "Daniil Isaev",
     description: "Daniil Isaev — Saint Petersburg State University student, programming and projects.",
-    navAbout: "about", navProjects: "projects", navContacts: "contact",
+    navAbout: "about", navProjects: "projects", navContacts: "contact", navHandshake: "handshake",
+    handshakeTitle: "Handshake", handshakeDescription: "Give Daniil a high five across two screens.",
+    homeLink: "← back to portfolio", signIn: "Sign in with Yandex", signOut: "Sign out",
+    loginFailed: "Couldn't sign in with Yandex. Please try again.",
+    loginUnavailable: "Yandex sign-in is currently unavailable.", ownerUnavailable: "The handshake is currently unavailable.",
+    ownerSetup: "Your Yandex account ID", visitor: "Guest", ownerName: "Daniil",
+    sendHighFive: "Give five", sendAgain: "Give five again", acceptHighFive: "Give five to {name}",
+    waiting: "Waiting for Daniil", ready: "Ready for a high five", requests: "Pending requests",
+    emptyQueue: "No pending requests", starting: "Starting together…", completed: "High five complete",
+    handshakeContact: "Get in touch →", signInRequired: "Sign in again to continue.",
+    actionUnavailable: "This action is unavailable.", connectionLost: "Connection interrupted. Reconnecting…",
+    noscript: "Enable JavaScript to use the handshake.",
     name: "Daniil Isaev", role: "Student, SPbU · Software Engineering '29",
     intro: "I study programming and modern languages, build my technical skills, and take part in projects where I value teamwork and sharing ideas.",
     photoPlaceholder: "Daniil's photo",
@@ -18,7 +29,18 @@ const translations = {
   ru: {
     title: "Исаев Даниил",
     description: "Исаев Даниил — студент СПбГУ, программирование и проекты.",
-    navAbout: "обо мне", navProjects: "проекты", navContacts: "контакты",
+    navAbout: "обо мне", navProjects: "проекты", navContacts: "контакты", navHandshake: "рукопожатие",
+    handshakeTitle: "Рукопожатие", handshakeDescription: "Дай пять Даниилу через два экрана.",
+    homeLink: "← к визитке", signIn: "Войти через Яндекс", signOut: "Выйти",
+    loginFailed: "Не удалось войти через Яндекс. Попробуй ещё раз.",
+    loginUnavailable: "Вход через Яндекс пока недоступен.", ownerUnavailable: "Рукопожатие пока недоступно.",
+    ownerSetup: "Твой ID аккаунта Яндекса", visitor: "Гость", ownerName: "Даниил",
+    sendHighFive: "Дать пять", sendAgain: "Дать пять ещё раз", acceptHighFive: "Дать пять · {name}",
+    waiting: "Ждём ответа Даниила", ready: "Можно дать пять", requests: "Входящие запросы",
+    emptyQueue: "Пока нет запросов", starting: "Скоро начнём…", completed: "Рукопожатие состоялось",
+    handshakeContact: "Связаться →", signInRequired: "Войди снова, чтобы продолжить.",
+    actionUnavailable: "Действие недоступно.", connectionLost: "Связь прервалась. Переподключаемся…",
+    noscript: "Включи JavaScript, чтобы воспользоваться рукопожатием.",
     name: "Исаев Даниил", role: "Студент СПбГУ · Программная инженерия '29",
     intro: "Изучаю программирование и современные языки, развиваю технические навыки и участвую в проектах, где ценю командную работу и обмен идеями.",
     photoPlaceholder: "фото Даниила",
@@ -108,24 +130,28 @@ function rotateStatus() {
 
 function setLanguage(language) {
   const copy = translations[language] || translations.en;
+  const handshake = document.body.dataset.page === 'handshake';
   document.documentElement.lang = language;
-  document.title = copy.title;
-  document.querySelector('meta[name="description"]').content = copy.description;
+  document.title = handshake ? `${copy.handshakeTitle} · ${copy.title}` : copy.title;
+  document.querySelector('meta[name="description"]').content = handshake ? copy.handshakeDescription : copy.description;
   document.querySelectorAll('[data-i18n]').forEach((element) => {
     const value = copy[element.dataset.i18n];
     if (value !== undefined) element.textContent = value;
   });
-  rotateStatus();
-  document.querySelector('.nav').setAttribute('aria-label', copy.navLabel);
+  document.querySelector('.nav')?.setAttribute('aria-label', copy.navLabel);
   document.querySelector('.language-toggle').setAttribute('aria-label', copy.languageLabel);
-  document.querySelector('.portrait').setAttribute('aria-label', copy.portraitLabel);
-  document.querySelector('.portrait img').alt = copy.photoAlt;
+  if (!handshake) {
+    rotateStatus();
+    document.querySelector('.portrait').setAttribute('aria-label', copy.portraitLabel);
+    document.querySelector('.portrait img').alt = copy.photoAlt;
+  }
   document.querySelectorAll('[data-set-lang]').forEach((button) => {
     const selected = button.dataset.setLang === language;
     button.classList.toggle('active', selected);
     button.setAttribute('aria-pressed', String(selected));
   });
   try { localStorage.setItem('site-language', language); } catch (_) {}
+  document.dispatchEvent(new Event('site-language-change'));
 }
 
 document.querySelectorAll('[data-set-lang]').forEach((button) => {
@@ -137,4 +163,4 @@ try {
   if (savedLanguage === 'en' || savedLanguage === 'ru') initialLanguage = savedLanguage;
 } catch (_) {}
 setLanguage(initialLanguage);
-startGreetingAnimation();
+if (document.querySelector('.eyebrow')) startGreetingAnimation();

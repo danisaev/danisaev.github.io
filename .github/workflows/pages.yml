@@ -30,10 +30,32 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Prepare static site
+        env:
+          HANDSHAKE_URL: ${{ vars.HANDSHAKE_URL }}
         run: |
           mkdir -p _site
           cp index.html styles.css language.js _site/
           cp -R assets _site/assets
+          python3 - <<'PY'
+          import os
+          import re
+          from html import escape
+          from pathlib import Path
+          from urllib.parse import urlsplit
+
+          address = os.environ['HANDSHAKE_URL'].strip()
+          page = Path('_site/index.html')
+          html = page.read_text(encoding='utf-8')
+          if address:
+              url = urlsplit(address)
+              if (url.scheme != 'https' or not url.hostname or url.username is not None
+                      or url.path != '/handshake' or url.query or url.fragment):
+                  raise SystemExit('HANDSHAKE_URL must be the public HTTPS address ending in /handshake.')
+              html = html.replace('href="/handshake"', f'href="{escape(address, quote=True)}"')
+          else:
+              html = re.sub(r'^.*data-i18n="navHandshake".*\n', '', html, flags=re.MULTILINE)
+          page.write_text(html, encoding='utf-8')
+          PY
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
