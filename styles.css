@@ -101,7 +101,8 @@ a:hover {
 .eyebrow {
   margin: 0 0 18px;
   color: var(--blue);
-  font: 13px var(--mono);
+  font: 13px/1.2 var(--mono);
+  overflow-wrap: anywhere;
 }
 
 .eyebrow::before {
@@ -247,11 +248,12 @@ h1 {
 
 .fact {
   display: grid;
-  grid-template-columns: 112px 1fr;
+  grid-template-columns: 112px minmax(0, 1fr);
   gap: 12px;
   padding-bottom: 11px;
   border-bottom: 1px solid #233445;
   font-size: 14px;
+  overflow-wrap: anywhere;
 }
 
 .fact .label {
@@ -354,9 +356,11 @@ h1 {
   .nav {
     font-size: 11px;
   }
+}
 
-  .fact {
-    grid-template-columns: 94px 1fr;
+@media (max-width: 420px) and (prefers-reduced-motion: no-preference) {
+  .eyebrow {
+    min-height: 2.4em;
   }
 }
 
